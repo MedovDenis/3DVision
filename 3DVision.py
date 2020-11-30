@@ -8,7 +8,7 @@ from PIL import Image, ImageTk
 
 def btnBall_Click(event):
     global figure
-    figure = Ball(300)
+    figure = Ball(100)
     print(figure)
     Print()
 
@@ -72,17 +72,27 @@ def Print ():
     global figure, cavans
 
     i = -1
-    for point1 in figure:
-        point0 = figure[i]
+    for point3D in figure:
+        point0 = Convert2D(figure[i])
+        point1 = Convert2D(point3D)
         i = i + 1
 
-        x0 = point0['x'] + 500 / 2
-        y0 = point0['y'] + 500 / 2
+        x0 = point0['x'] 
+        y0 = point0['y'] 
 
-        x1 = point1['x'] + 500 / 2
-        y1 = point1['y'] + 500 / 2
+        x1 = point1['x'] 
+        y1 = point1['y']
 
         cavans.create_line(x0, y0, x1, y1)
+
+def Convert2D (point3D):
+    af = 0.1
+    gm = 0.1
+    x = point3D['x'] * math.cos(gm) - point3D['y'] * math.sin(gm) + 500 / 2
+    y = math.cos(af) * (point3D['x'] * math.sin(gm) + point3D['y'] * math.cos(gm)) + point3D['z'] * math.cos(af) + 500 / 2
+
+    point = {'x' : x, 'y' : y}
+    return point
 
 if __name__ == "__main__":
     root = Tk()
