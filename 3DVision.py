@@ -178,13 +178,13 @@ if __name__ == "__main__":
 
     # =========== Button ===========
     btnBall = Button(text = "Шар", command = btnBall_Click)
-    btnBall.grid(row = 0, column = 0)
+    btnBall.grid(row = 0, column = 0, columnspan = 2)
 
     btnKeli = Button(text = "Поверхность Кэли", command = btnKeli_Click)
-    btnKeli.grid(row = 0, column = 1)
+    btnKeli.grid(row = 0, column = 2, columnspan = 2)
 
     btnPrizm = Button(text = "Призма")
-    btnPrizm.grid(row = 0, column = 2)
+    btnPrizm.grid(row = 0, column = 4, columnspan = 2)
 
     # =========== Moving ===========
     btnUp = Button(text = "Вверх", image = imgUp, command = btnUp_Click)
