@@ -1,6 +1,6 @@
 from tkinter import *
-import  math
-# from PIL import Image, ImageTk
+import math 
+from PIL import Image, ImageTk
 
 # class Main (Frame):
 #     def __init__(self, root):
@@ -38,6 +38,7 @@ def btnLeftRot_Click():
     Print()
 
 
+
 def btnUp_Click():
     global dy
     dy = dy - 10
@@ -62,28 +63,19 @@ def btnLeft_Click():
     # print(figure)
     Print()
 
+
+
 def btnBall_Click():
     global figure
     figure = Ball(100)
     # print(figure)
     Print()
 
-# def MouseLeft(event):
-#     global lbDebug
-#     lbDebug.config(text = 'Левая кнопка мыши')      
- 
-# def MouseRight(event):
-#     global lbDebug
-#     lbDebug.config(text = 'Правая кнопка мыши')    
-
-# def MouseMove(event):
-#     global lbDebug
-#     print(event)
-#     x = event.x
-#     y = event.y
-#     s = "Движение мышью {}x{}".format(x, y)
-
-#     lbDebug.config(text = s)
+def btnKeli_Click():
+    global figure
+    figure = Keli()
+    # print(figure)
+    Print()
 
 # =========== Figure ===========
 def Ball(R):
@@ -106,6 +98,25 @@ def Ball(R):
             
     return listpoint
 
+def Keli():
+    listpoint = []
+    x = -100
+    while x <= 100:
+        y = -100
+        while y <= 100:
+            z = (y + x*y)**(0.3)
+
+            point3D = {'x': 0, 'y': 0, 'z': 0}
+            point3D['x'] = x
+            point3D['y'] = y
+            point3D['z'] = z
+
+            listpoint.append(point3D)
+            y = y + 1
+        x = x + 1
+            
+    return listpoint
+
 def Cube(Width):
     listpoint = [
         {'x': 0, 'y': 0, 'z': 0},
@@ -121,7 +132,9 @@ def Cube(Width):
         {'x': 0, 'y': 0, 'z': 0}
     ]
     return listpoint
+# =========== End Figure ===========
 
+# =========== Print ===========
 def Print ():
     global figure, cavans
     cavans.delete("all") 
@@ -146,73 +159,74 @@ def Convert2D (point3D):
 
     point = {'x' : x, 'y' : y}
     return point
+# =========== End Print ===========
 
+# =========== Form ===========
 if __name__ == "__main__":
     root = Tk()
     figure = []
-
-
-
-    # =========== Form ===========
+    
     root.iconbitmap('sours/3d-model.ico')
     root.title('3DVision')
+
+    # =========== Image ===========
+    imgUp = ImageTk.PhotoImage(file = "sours/up-arrow.png")
+    imgDown = ImageTk.PhotoImage(file = "sours/down-arrow.png")
+    imgRight = ImageTk.PhotoImage(file = "sours/right-arrow.png")
+    imgLeft = ImageTk.PhotoImage(file = "sours/left-arrow.png")
+    # =========== End Image ===========
 
     # =========== Button ===========
     btnBall = Button(text = "Шар", command = btnBall_Click)
     btnBall.grid(row = 0, column = 0)
 
-    btnCube = Button(text = "Куб")
-    btnCube.grid(row = 0, column = 1)
+    btnKeli = Button(text = "Поверхность Кэли", command = btnKeli_Click)
+    btnKeli.grid(row = 0, column = 1)
 
     btnPrizm = Button(text = "Призма")
     btnPrizm.grid(row = 0, column = 2)
 
     # =========== Moving ===========
-    btnUp = Button(text = "Вверх", command = btnUp_Click)
+    btnUp = Button(text = "Вверх", image = imgUp, command = btnUp_Click)
     btnUp.grid(row = 3, column = 1)
 
-    btnDown = Button(text = "Вниз", command = btnDown_Click)
+    btnDown = Button(text = "Вниз", image = imgDown, command = btnDown_Click)
     btnDown.grid(row = 5, column = 1)
 
-    btnRight = Button(text = "Вправо", command = btnRight_Click)
+    btnRight = Button(text = "Вправо", image = imgRight, command = btnRight_Click)
     btnRight.grid(row = 4, column = 2)
 
-    btnLeft = Button(text = "Влево", command = btnLeft_Click)
+    btnLeft = Button(text = "Влево", image = imgLeft, command = btnLeft_Click)
     btnLeft.grid(row = 4, column = 0) 
+    # =========== End Moving ===========
 
     # =========== Rotation ===========
-    btnUpRot = Button(text = "Вверх", command = btnUpRot_Click)
+    btnUpRot = Button(text = "Вверх", image = imgUp, command = btnUpRot_Click)
     btnUpRot.grid(row = 3, column = 4)
 
-    btnDownRot = Button(text = "Вниз", command = btnDownRot_Click)
+    btnDownRot = Button(text = "Вниз", image = imgDown, command = btnDownRot_Click)
     btnDownRot.grid(row = 5, column = 4)
 
-    btnRightRot = Button(text = "Вправо", command = btnRightRot_Click)
+    btnRightRot = Button(text = "Вправо", image = imgRight, command = btnRightRot_Click)
     btnRightRot.grid(row = 4, column = 5)
 
-    btnLeftRot = Button(text = "Влево", command = btnLeftRot_Click)
+    btnLeftRot = Button(text = "Влево", image = imgLeft, command = btnLeftRot_Click)
     btnLeftRot.grid(row = 4, column = 3) 
+    # =========== End Rotation ===========
+    # =========== End Button ===========
 
     # =========== Canvas ===========
     cavans = Canvas(root, width = width, height = height, bg='white')
     cavans.grid(row = 1, column = 0, columnspan = 6)
+    # =========== End Canvas ===========
 
     # =========== Label ===========
-    # lbDebug = Label(text = '')
-    # lbDebug.grid(row = 5,  column = 0, columnspan = 3)
-
     lbDebug = Label(text = 'Перемещение')
     lbDebug.grid(row = 2,  column = 0, columnspan = 3)
 
     lbDebug = Label(text = 'Поворот')
-    lbDebug.grid(row = 2,  column = 3, columnspan = 3)                     
+    lbDebug.grid(row = 2,  column = 3, columnspan = 3)
+    # =========== End Label ===========                     
  
-    # =========== Bind ===========
-    # cavans.bind('<Button-1>', MouseLeft)
-    # cavans.bind('<Button-3>', MouseRight)
-    # cavans.bind('<Motion>', MouseMove)
-
-    # btnBall.bind('<Button-1>', btnBall_Click)
-    
     root.mainloop()
-
+# =========== End Form ===========
